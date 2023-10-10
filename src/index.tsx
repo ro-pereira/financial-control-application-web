@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Header from "./components/Header/Header";
+import "./globalStyle.sass";
 import Home from "./page/Home/Home";
 
 const root = ReactDOM.createRoot(
@@ -9,6 +11,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    <Header />
     <Home />
   </React.StrictMode>
 );
