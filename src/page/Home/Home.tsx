@@ -4,6 +4,7 @@ import ActiveButton from "../../common/components/ActiveButton/ActiveButton";
 import CardResume from "../../components/CardResume/CardResume";
 import Table from "../../components/Table/Table";
 import "./home.sass";
+import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction/ModalRecordsAddTransaction";
 
 const Home = () => {
   const [openModalAddTransaction, setOpenModalAddTransaction] = useState(false);
@@ -29,6 +30,8 @@ const Home = () => {
           </Stack>
         </Col>
       </Row>
+
+      <ModalRecordsAddTransaction openModalAddTransaction={openModalAddTransaction} />
     </main>
   );
 };

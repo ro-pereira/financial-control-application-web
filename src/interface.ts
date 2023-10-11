@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export interface ITransactionData {
   id: number;
   date: string;
@@ -39,4 +41,37 @@ export interface IActiveButton {
   open: boolean;
   toggleOpen: () => void;
   label: string;
+}
+
+export interface IModalHeader {
+  title: string;
+}
+
+export interface IInputFieldConfig {
+  type: string;
+  placeholder: string;
+  maxLength?: number;
+  rows?: number;
+  required: boolean;
+  value: string | undefined;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  disabeButton?: string;
+}
+
+export interface IInputFieldsConfig {
+  [key: string]: IInputFieldConfig;
+}
+
+
+export interface IFormRecords {
+  form: ITransactionData;
+  setForm: React.Dispatch<React.SetStateAction<ITransactionData>>;
+  id: number;
+  setId: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export interface IModalRecordsAddTransaction {
+  openModalAddTransaction: boolean
 }
