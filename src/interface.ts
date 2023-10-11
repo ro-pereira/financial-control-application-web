@@ -34,3 +34,9 @@ export interface ICardItem {
   className: string;
   colorValue?: string;
 }
+
+export interface IActiveButton {
+  open: boolean;
+  toggleOpen: () => void;
+  label: string;
+}
