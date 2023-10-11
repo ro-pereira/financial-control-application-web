@@ -24,3 +24,13 @@ export interface ICardDelete {
   >;
 }
 
+export interface ICardHeade {
+  title: string;
+}
+
+export interface ICardItem {
+  label: string;
+  value: number;
+  className: string;
+  colorValue?: string;
+}

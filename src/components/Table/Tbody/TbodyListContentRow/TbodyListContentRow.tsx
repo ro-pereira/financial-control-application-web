@@ -3,9 +3,9 @@ import { Stack } from "react-bootstrap";
 import iconDelete from "../../../../assets/icon-delete.png";
 import iconEdit from "../../../../assets/icon-edit.png";
 import {
-    getTransactionColor,
-    insertDecimalPlace,
-    replacePeriodWithComma,
+  getTransactionColor,
+  insertDecimalPlace,
+  replacePeriodWithComma,
 } from "../../../../common/utilsCommon";
 import { ITbodyListContetRow } from "../../../../interface";
 import ButtonIconTbody from "./ButtonIconTbody/ButtonIconTbody";
