@@ -1,9 +1,14 @@
 import { format } from "date-fns";
-import { IInputFieldsConfig, ITransactionData } from "../../../interface";
+import { IInputFieldsConfig, ITransactionData } from "../../interface";
 import { ChangeEvent, Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import { addNewTransaction } from "../../../store/slices/transactionsSlices";
-import { toggleOpenAddTrnsactionModal } from "../../../store/slices/modalSlice";
+import { addNewTransaction } from "../../store/slices/transactionsSlices";
+import {
+  setCurrentCategorylModalRecords,
+  setCurrentTransctionTypeModalRecords,
+  toggleOpenAddTrnsactionModal,
+} from "../../store/slices/modalSlice";
+import { addCategory } from "../../store/slices/categoriesAndTransactionStatusSlice";
 
 export const getAddFormInitialData = (newId: number) => {
   return {
@@ -21,7 +26,7 @@ export const getInputsConfig = (
   handleChangeInputs: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void,
-  isCategorySelected?: boolean
+  isCategorySelected: boolean
 ) => {
   const { date, category, description, value } = form;
 
@@ -86,28 +91,59 @@ export const handleActionsForm = (
     }
   };
 
+  const handleChangeCategorySelectedAddTransaction = (
+    categorySelected: string
+  ) => {
+    dispatch(setCurrentCategorylModalRecords({ category: categorySelected }));
+    setForm({
+      ...form,
+      category: categorySelected,
+    });
+  };
+
+  const handleChangeTransactionTypeSelected = (
+    transactionTypeSelected: string
+  ) => {
+    setForm({
+      ...form,
+      transactionType: transactionTypeSelected,
+    });
+  };
+
   const handleCloseAddModal = () => {
+    dispatch(setCurrentCategorylModalRecords({ category: "" }));
+    dispatch(
+      setCurrentTransctionTypeModalRecords({ transactionType: "deposit" })
+    );
     dispatch(toggleOpenAddTrnsactionModal({ openOfClose: false }));
     return;
   };
 
-  return { handleChangeInputsRecords, handleCloseAddModal };
+  return {
+    handleChangeInputsRecords,
+    handleCloseAddModal,
+    handleChangeTransactionTypeSelected,
+    handleChangeCategorySelectedAddTransaction,
+  };
 };
 
 export const handleSubmitForm = (
   dispatch: Dispatch<AnyAction>,
-  form: ITransactionData
+  form: ITransactionData,
+  categories: string[]
 ) => {
+  const checkNewItemBelongsToList = (item: string) => {
+    return categories.includes(item);
+  };
   const { category } = form;
 
   const handleSubmitOfFormAddModal = () => {
     try {
       dispatch(addNewTransaction(form));
-      console.log("Transação adicionada com sucesso!");
-      // if (!checkNewItemBelongsToList(category)) {
-      //   dispatch(addNewCategory(category));
-      //   return;
-      // }
+      if (!checkNewItemBelongsToList(category)) {
+        dispatch(addCategory(category));
+        return;
+      }
     } catch (error) {
       console.error("Erro ao adicionar transação:", error);
     }

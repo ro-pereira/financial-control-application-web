@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import ButtonApllyDefault from "../../../../../common/components/ButtonApplyDefault/ButtonApplyDefault";
+import ButtonResetDefault from "../../../../../common/components/ButtonResetDefault/ButtonResetDefault";
+import CategoriesChips from "../../../../../common/components/CategoriesChips/CategoriesChips";
+import TransactionTypeChip from "../../../../../common/components/TransactionTypeChips/TransactionTypeChips";
+import { handleChipSelection } from "../../../../../common/utilsCommon";
 import { IFormRecords, IInputFieldConfig } from "../../../../../interface";
+import { useAppSelector } from "../../../../../store/hook";
 import {
   getAddFormInitialData,
   getInputsConfig,
   handleActionsForm,
-} from "../../utilsModais";
-import FormField from "./FormField";
+} from "../../../utilsModais";
 import FormControlValidation from "./FormControlValidatinho";
-import ButtonApllyDefault from "../../../../../common/components/ButtonApplyDefault/ButtonApplyDefault";
-import ButtonResetDefault from "../../../../../common/components/ButtonResetDefault/ButtonResetDefault";
-import { useDispatch } from "react-redux";
+import FormField from "./FormField";
 
 const FormRecords = ({
   form,
@@ -21,17 +25,50 @@ const FormRecords = ({
 }: IFormRecords) => {
   const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
+  const newId = id + 1;
+  const {
+    currentTransactionTypeModalRecords,
+    currentCategoryModalRecords,
+    isCategorySelected,
+  } = useAppSelector((state) => state.reducer.modal);
 
-  const { handleChangeInputsRecords, handleCloseAddModal } = handleActionsForm(
-    dispatch,
-    form,
-    setForm
+  const categories = useAppSelector(
+    (state) => state.reducer.categoriesAndTransactionStatus.categories
   );
 
-  const inputFieldsConfig = getInputsConfig(form, handleChangeInputsRecords);
+  const {
+    handleChangeInputsRecords,
+    handleCloseAddModal,
+    handleChangeTransactionTypeSelected,
+    handleChangeCategorySelectedAddTransaction,
+  } = handleActionsForm(dispatch, form, setForm);
+
+  const inputFieldsConfig = getInputsConfig(
+    form,
+    handleChangeInputsRecords,
+    isCategorySelected
+  );
+
+  useEffect(() => {
+    const isCategorySelected = currentCategoryModalRecords !== "";
+    handleChangeCategorySelectedAddTransaction(currentCategoryModalRecords);
+
+    dispatch({
+      type: "modal/setIsCategorySelected",
+      payload: isCategorySelected,
+    });
+  }, [currentCategoryModalRecords]);
+
+  useEffect(() => {
+    handleChangeTransactionTypeSelected(currentTransactionTypeModalRecords);
+  }, [currentTransactionTypeModalRecords, form.transactionType]);
+
+  const { handleSelectedTransactionModal, handleSelectedCategoryModal } =
+    handleChipSelection();
 
   const handleCloseModal = () => {
     handleCloseAddModal();
+    setForm(getAddFormInitialData(newId));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +82,7 @@ const FormRecords = ({
     }
 
     submitForm();
-    const newId = id + 1;
+    // const newId = id + 1;
     setForm(getAddFormInitialData(newId));
     setId(newId);
     handleCloseModal();
@@ -69,10 +106,33 @@ const FormRecords = ({
               key={fieldName}
             >
               <FormField fieldName={fieldName} config={config} />
+              {fieldName === "category" && categories.length > 0 && (
+                <div
+                  className={`modal__body__form-category d-flex flex-column gap-2 ${
+                    !isCategorySelected && "mt-5"
+                  }`}
+                >
+                  <CategoriesChips
+                    categoriesSelected={[currentCategoryModalRecords]}
+                    title="Existing categories"
+                    onSelectCategory={handleSelectedCategoryModal}
+                  />
+                </div>
+              )}
               <FormControlValidation fieldName={fieldName} />
             </Form.Group>
           );
         })}
+
+      <Form.Group>
+        <div className=" d-flex flex-column gap-2">
+          <TransactionTypeChip
+            title="Transaction Type"
+            transactionsTypeSelected={[currentTransactionTypeModalRecords]}
+            onSelectTransactionType={handleSelectedTransactionModal}
+          />
+        </div>
+      </Form.Group>
 
       <Col className="modal__footer d-flex flex-row align-items-center justify-content-between">
         <ButtonResetDefault label="Close" actionReset={handleCloseModal} />

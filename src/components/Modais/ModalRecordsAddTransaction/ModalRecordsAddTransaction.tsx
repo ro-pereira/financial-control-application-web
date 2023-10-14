@@ -6,8 +6,10 @@ import {
   IModalRecordsAddTransaction,
   ITransactionData,
 } from "../../../interface";
-import { getAddFormInitialData, handleSubmitForm } from "../common/utilsModais";
+import { getAddFormInitialData, handleSubmitForm } from "../utilsModais";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../../store/hook";
+import "../modais.sass";
 
 const ModalRecordsAddTransaction = ({
   openModalAddTransaction,
@@ -16,8 +18,14 @@ const ModalRecordsAddTransaction = ({
   const [id, setId] = useState(0);
   const formDefault = getAddFormInitialData(id);
   const [formAdd, setFormAdd] = useState<ITransactionData>(formDefault);
-
-  const { handleSubmitOfFormAddModal } = handleSubmitForm(dispatch, formAdd);
+  const categories = useAppSelector(
+    (state) => state.reducer.categoriesAndTransactionStatus.categories
+  );
+  const { handleSubmitOfFormAddModal } = handleSubmitForm(
+    dispatch,
+    formAdd,
+    categories
+  );
 
   return (
     <Modal show={openModalAddTransaction} size="sm">

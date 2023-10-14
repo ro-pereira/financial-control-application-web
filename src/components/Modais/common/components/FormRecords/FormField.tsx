@@ -1,11 +1,6 @@
 import { Form } from "react-bootstrap";
-import { IInputFieldConfig } from "../../../../../interface";
-
-interface IFormField {
-  fieldName: string;
-  config: IInputFieldConfig;
-  disableButton?: boolean;
-}
+import { IFormField } from "../../../../../interface";
+import "../../../modais.sass";
 
 const FormField = ({ fieldName, config }: IFormField) => {
   return (

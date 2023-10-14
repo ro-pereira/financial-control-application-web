@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap";
 import { getTransactionColor } from "../../common/utilsCommon";
 import { useAppSelector } from "../../store/hook";
-import { selectTransactionEntities, transactionsData } from "../../store/slices/transactionsSlices";
+import { selectTransactionEntities } from "../../store/slices/transactionsSlices";
 import CardHeade from "./CardHeade/CardHeade";
 import CardItem from "./CardItem/CardItem";
 import "./cardResume.sass";
@@ -23,13 +23,13 @@ const CardResume = () => {
           label="Deposit"
           value={deposit}
           className="card__resume__deposit"
-          colorValue={colorCashout}
+          colorValue={colorDeposit}
         />
         <CardItem
           label="Cashout"
           value={cashout}
           className="card__resume__cashout"
-          colorValue={colorDeposit}
+          colorValue={colorCashout}
         />
       </Card.Body>
       <Card.Footer>

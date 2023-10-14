@@ -28,6 +28,9 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
     setCurrentTransactionDelete(id);
   };
 
+  // console.log(transactionTypeColor, 'transactionTypeColor');
+  
+
   return (
     <tr>
       <td>{transaction?.date}</td>

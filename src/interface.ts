@@ -16,6 +16,9 @@ export interface ITransactionsDataSlice {
 
 export interface IModalState {
   openModalAddTransaction: boolean;
+  currentTransactionTypeModalRecords: string,
+  currentCategoryModalRecords: string,
+  isCategorySelected: boolean;
 }
 
 export interface ITbodyListContetRow {
@@ -92,4 +95,28 @@ export interface IButtonApllyDefault {
 export interface IButtonResetDefault {
   label: string;
   actionReset: any;
+}
+
+export interface IChip {
+  item: string;
+  onSelectedChip: (e: string) => void;
+  selectedItems?: string[];
+  variant: string;
+}
+
+export interface ITransactionTypeChip {
+  title: string;
+  transactionsTypeSelected: string[];
+  onSelectTransactionType: (item: string) => void
+}
+
+export interface ICategoriesChips {
+  title: string;
+  categoriesSelected: string[],
+  onSelectCategory: (item: string) => void
+}
+
+export interface IFormField {
+  fieldName: string;
+  config: IInputFieldConfig;
 }
