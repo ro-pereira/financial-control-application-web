@@ -1,16 +1,22 @@
-import { useState } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import ActiveButton from "../../common/components/ActiveButton/ActiveButton";
 import CardResume from "../../components/CardResume/CardResume";
-import Table from "../../components/Table/Table";
-import "./home.sass";
 import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction/ModalRecordsAddTransaction";
+import Table from "../../components/Table/Table";
+import { useAppSelector } from "../../store/hook";
+import { toggleOpenAddTrnsactionModal } from "../../store/slices/modalSlice";
+import "./home.sass";
 
 const Home = () => {
-  const [openModalAddTransaction, setOpenModalAddTransaction] = useState(false);
+  const dispatch = useDispatch();
 
-  const toggleOpenAddTrnsactionModal = () => {
-    setOpenModalAddTransaction(!openModalAddTransaction);
+  const openModalAddTransaction = useAppSelector(
+    (state) => state.reducer.modal.openModalAddTransaction
+  );
+
+  const handleToggleOpenAddTrnsactionModal = () => {
+    dispatch(toggleOpenAddTrnsactionModal({ openOfClose: true }));
   };
 
   return (
@@ -24,14 +30,16 @@ const Home = () => {
             <CardResume />
             <ActiveButton
               open={openModalAddTransaction}
-              toggleOpen={toggleOpenAddTrnsactionModal}
+              toggleOpen={handleToggleOpenAddTrnsactionModal}
               label="add-transaction"
             />
           </Stack>
         </Col>
       </Row>
 
-      <ModalRecordsAddTransaction openModalAddTransaction={openModalAddTransaction} />
+      <ModalRecordsAddTransaction
+        openModalAddTransaction={openModalAddTransaction}
+      />
     </main>
   );
 };

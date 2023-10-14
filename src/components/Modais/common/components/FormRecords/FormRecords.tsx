@@ -1,19 +1,63 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
 import { IFormRecords, IInputFieldConfig } from "../../../../../interface";
-import { getInputsConfig, handleActionsForm } from "../../utilsModais";
+import {
+  getAddFormInitialData,
+  getInputsConfig,
+  handleActionsForm,
+} from "../../utilsModais";
 import FormField from "./FormField";
 import FormControlValidation from "./FormControlValidatinho";
+import ButtonApllyDefault from "../../../../../common/components/ButtonApplyDefault/ButtonApplyDefault";
+import ButtonResetDefault from "../../../../../common/components/ButtonResetDefault/ButtonResetDefault";
+import { useDispatch } from "react-redux";
 
-const FormRecords = ({ form, setForm, id, setId }: IFormRecords) => {
+const FormRecords = ({
+  form,
+  setForm,
+  id,
+  setId,
+  submitForm,
+}: IFormRecords) => {
   const [validated, setValidated] = useState(false);
+  const dispatch = useDispatch();
 
-  const { handleChangeInputsRecords } = handleActionsForm(form, setForm);
+  const { handleChangeInputsRecords, handleCloseAddModal } = handleActionsForm(
+    dispatch,
+    form,
+    setForm
+  );
 
   const inputFieldsConfig = getInputsConfig(form, handleChangeInputsRecords);
 
+  const handleCloseModal = () => {
+    handleCloseAddModal();
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const formCheck = event.currentTarget;
+
+    if (!formCheck.checkValidity()) {
+      setValidated(true);
+      return;
+    }
+
+    submitForm();
+    const newId = id + 1;
+    setForm(getAddFormInitialData(newId));
+    setId(newId);
+    handleCloseModal();
+  };
+
   return (
-    <Form noValidate validated={validated} className="d-flex flex-column gap-5">
+    <Form
+      noValidate
+      validated={validated}
+      onSubmit={handleSubmit}
+      className="d-flex flex-column gap-5"
+    >
       {inputFieldsConfig &&
         Object.keys(inputFieldsConfig).map((fieldName: string) => {
           const config =
@@ -29,6 +73,11 @@ const FormRecords = ({ form, setForm, id, setId }: IFormRecords) => {
             </Form.Group>
           );
         })}
+
+      <Col className="modal__footer d-flex flex-row align-items-center justify-content-between">
+        <ButtonResetDefault label="Close" actionReset={handleCloseModal} />
+        <ButtonApllyDefault label="Save Changes" />
+      </Col>
     </Form>
   );
 };

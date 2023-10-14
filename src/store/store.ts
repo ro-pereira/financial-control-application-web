@@ -1,9 +1,15 @@
-import { transactionsDataSlice } from "./slices/transactionsSlices";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import modalReducer from "../store/slices/modalSlice";
+import transactionReducer from "../store/slices/transactionsSlices";
+
+const rootReducer = combineReducers({
+  transactions: transactionReducer,
+  modal: modalReducer,
+});
 
 export const store = configureStore({
   reducer: {
-    transactions: transactionsDataSlice.reducer,
+    reducer: rootReducer,
   },
 });
 

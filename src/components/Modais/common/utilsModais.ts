@@ -1,6 +1,9 @@
 import { format } from "date-fns";
 import { IInputFieldsConfig, ITransactionData } from "../../../interface";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch } from "react";
+import { AnyAction } from "@reduxjs/toolkit";
+import { addNewTransaction } from "../../../store/slices/transactionsSlices";
+import { toggleOpenAddTrnsactionModal } from "../../../store/slices/modalSlice";
 
 export const getAddFormInitialData = (newId: number) => {
   return {
@@ -63,6 +66,7 @@ export const getInputsConfig = (
 };
 
 export const handleActionsForm = (
+  dispatch: any,
   form: ITransactionData,
   setForm: React.Dispatch<React.SetStateAction<ITransactionData>>
 ) => {
@@ -82,5 +86,32 @@ export const handleActionsForm = (
     }
   };
 
-  return { handleChangeInputsRecords };
+  const handleCloseAddModal = () => {
+    dispatch(toggleOpenAddTrnsactionModal({ openOfClose: false }));
+    return;
+  };
+
+  return { handleChangeInputsRecords, handleCloseAddModal };
+};
+
+export const handleSubmitForm = (
+  dispatch: Dispatch<AnyAction>,
+  form: ITransactionData
+) => {
+  const { category } = form;
+
+  const handleSubmitOfFormAddModal = () => {
+    try {
+      dispatch(addNewTransaction(form));
+      console.log("Transação adicionada com sucesso!");
+      // if (!checkNewItemBelongsToList(category)) {
+      //   dispatch(addNewCategory(category));
+      //   return;
+      // }
+    } catch (error) {
+      console.error("Erro ao adicionar transação:", error);
+    }
+  };
+
+  return { handleSubmitOfFormAddModal };
 };

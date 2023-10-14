@@ -1,3 +1,4 @@
+import { EntityState } from "@reduxjs/toolkit";
 import { ChangeEvent } from "react";
 
 export interface ITransactionData {
@@ -7,6 +8,14 @@ export interface ITransactionData {
   description?: string;
   transactionType: string;
   value: string;
+}
+
+export interface ITransactionsDataSlice {
+  transactionsData: EntityState<ITransactionData>;
+}
+
+export interface IModalState {
+  openModalAddTransaction: boolean;
 }
 
 export interface ITbodyListContetRow {
@@ -64,14 +73,23 @@ export interface IInputFieldsConfig {
   [key: string]: IInputFieldConfig;
 }
 
-
 export interface IFormRecords {
   form: ITransactionData;
   setForm: React.Dispatch<React.SetStateAction<ITransactionData>>;
   id: number;
   setId: React.Dispatch<React.SetStateAction<number>>;
+  submitForm: () => void;
 }
 
 export interface IModalRecordsAddTransaction {
-  openModalAddTransaction: boolean
+  openModalAddTransaction: boolean;
+}
+
+export interface IButtonApllyDefault {
+  label: string;
+}
+
+export interface IButtonResetDefault {
+  label: string;
+  actionReset: any;
 }

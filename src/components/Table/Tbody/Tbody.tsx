@@ -1,15 +1,20 @@
 import { useAppSelector } from "../../../store/hook";
-import { transactionsData } from "../../../store/slices/transactionsSlices";
+import {
+  selectTransactionEntities
+} from "../../../store/slices/transactionsSlices";
 import TbodyListContentRow from "./TbodyListContentRow/TbodyListContentRow";
 
 const Tbody = () => {
-  const transactions = useAppSelector(transactionsData) || [];
+  const transactions = useAppSelector(selectTransactionEntities) || [];
 
   return (
     <tbody>
       {transactions.map((transaction) => {
         return (
-          <TbodyListContentRow key={transaction.id} transaction={transaction} />
+          <TbodyListContentRow
+            key={transaction?.id}
+            transaction={transaction}
+          />
         );
       })}
     </tbody>
