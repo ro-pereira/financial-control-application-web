@@ -6,13 +6,15 @@ import {
   insertDashSymbolInWord,
 } from "../../utilsCommon";
 import Chip from "../Chip/Chip";
+import "./transactionTypeChips.sass";
 
 const TransactionTypeChip = ({
   title,
   transactionsTypeSelected,
   onSelectTransactionType,
+  style,
 }: ITransactionTypeChip) => {
-  const originOfTheStyle = insertDashSymbolInWord(title);
+  const originOfTheStyle = insertDashSymbolInWord(style);
 
   const transactionType = useAppSelector(
     (state) => state.reducer.categoriesAndTransactionStatus.transactionTypes

@@ -1,8 +1,21 @@
 main.home
     min-height: calc( 100vh - 10rem )
     padding: 2rem 0
-    
+
     .home__container
         gap: 3rem
         .home__container__table
             background: #00000000
+
+@media screen and ( min-width: 1000px ) and (max-width: 1400px)
+    main.home
+        .home__container__filter
+            margin-left: 3.5rem
+
+@media (min-width: 1400px)
+    main.home
+        width: 1200px
+        .home__container__filter
+            // background: #000
+            margin-left: 4rem
+            margin-bottom: 2rem

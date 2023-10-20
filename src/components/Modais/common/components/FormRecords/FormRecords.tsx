@@ -5,7 +5,7 @@ import ButtonApllyDefault from "../../../../../common/components/ButtonApplyDefa
 import ButtonResetDefault from "../../../../../common/components/ButtonResetDefault/ButtonResetDefault";
 import CategoriesChips from "../../../../../common/components/CategoriesChips/CategoriesChips";
 import TransactionTypeChip from "../../../../../common/components/TransactionTypeChips/TransactionTypeChips";
-import { handleChipSelection } from "../../../../../common/utilsCommon";
+import { handleChipSelectionModal } from "../../../../../common/utilsCommon";
 import { IFormRecords, IInputFieldConfig } from "../../../../../interface";
 import { useAppSelector } from "../../../../../store/hook";
 import {
@@ -64,7 +64,7 @@ const FormRecords = ({
   }, [currentTransactionTypeModalRecords, form.transactionType]);
 
   const { handleSelectedTransactionModal, handleSelectedCategoryModal } =
-    handleChipSelection();
+    handleChipSelectionModal();
 
   const handleCloseModal = () => {
     const newId = id + 1;

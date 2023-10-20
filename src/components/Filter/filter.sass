@@ -1,0 +1,35 @@
+.filter
+    font-size: 1.4rem
+    color: rgb(83, 152, 236)
+
+    .filter__dropdown
+        border: 1px solid rgb(83, 152, 236)
+        background: rgba(255, 255, 255, 0.692)
+        border-radius: .5rem
+
+        .filter__dropdown__container__transactionType
+            border-left: 1px solid rgb(83, 152, 236)
+            border-right: 1px solid rgb(83, 152, 236)
+
+@media screen and ( max-width: 1000px )
+    .filter
+        .filter__dropdown
+            .filter__dropdown__container__categories
+                min-height: 8rem
+
+            .filter__dropdown__container__transactionType
+                min-height: 8rem
+                border-top: 1px solid rgb(83, 152, 236)
+                border-bottom: 1px solid rgb(83, 152, 236)
+                border-left: none
+                border-right: none
+
+@media screen and ( min-width: 1000px ) and (max-width: 1330px)
+    .filter
+        .filter__dropdown
+            max-width: 60vw
+
+@media screen and ( min-width: 1330px  )
+    .filter
+        .filter__dropdown
+            max-width: 80rem

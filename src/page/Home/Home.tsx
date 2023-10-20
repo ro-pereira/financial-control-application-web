@@ -2,13 +2,13 @@ import { Col, Row, Stack } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import ActiveButton from "../../common/components/ActiveButton/ActiveButton";
 import CardResume from "../../components/CardResume/CardResume";
+import Filter from "../../components/Filter/Filter";
+import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction";
+import ModalRecordsEditTransaction from "../../components/Modais/ModalRecordsEditTransaction";
 import Table from "../../components/Table/Table";
 import { useAppSelector } from "../../store/hook";
 import { toggleOpenAddTrnsactionModal } from "../../store/slices/modalSlice";
 import "./home.sass";
-import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction";
-import ModalRecordsEditTransaction from "../../components/Modais/ModalRecordsEditTransaction";
-import Filter from "../../components/Filter/Filter";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ const Home = () => {
 
   return (
     <main className="home">
-      <Stack gap={5}>
-        <Col>
+      <Stack gap={3}>
+        <Col xs={12} sm={12} lg={10} className="home__container__filter">
           <Filter />
         </Col>
         <Row className="home__container justify-content-center">

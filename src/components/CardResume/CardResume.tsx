@@ -1,14 +1,17 @@
 import { Card } from "react-bootstrap";
 import { getTransactionColor } from "../../common/utilsCommon";
 import { useAppSelector } from "../../store/hook";
-import { selectTransactionEntities } from "../../store/slices/transactionsSlices";
+import {
+  selectFilteredTransactions
+} from "../../store/slices/transactionsSlices";
 import CardHeade from "./CardHeade/CardHeade";
 import CardItem from "./CardItem/CardItem";
 import "./cardResume.sass";
 import { filterType, handleColorValue } from "./utilsCardResume";
 
 const CardResume = () => {
-  const transactions = useAppSelector(selectTransactionEntities) || [];
+  const transactions = useAppSelector(selectFilteredTransactions) || [];
+
   const deposit = filterType(transactions, "deposit");
   const cashout = filterType(transactions, "cashout");
   const colorValue = handleColorValue(deposit, cashout);

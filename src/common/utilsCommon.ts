@@ -1,5 +1,8 @@
 import { useDispatch } from "react-redux";
-import { setCurrentCategorylModalRecords, setCurrentTransctionTypeModalRecords } from "../store/slices/modalSlice";
+import {
+  setCurrentCategorylModalRecords,
+  setCurrentTransctionTypeModalRecords,
+} from "../store/slices/modalSlice";
 import { useAppSelector } from "../store/hook";
 
 export const insertDecimalPlace = (value: number) => {
@@ -24,12 +27,11 @@ export const capitalizeFirstLetter = (label: string) => {
   return label.charAt(0).toUpperCase() + label.substring(1);
 };
 
-export const handleChipSelection = () => {
+export const handleChipSelectionModal = () => {
   const dispatch = useDispatch();
   const { currentCategoryModalRecords } = useAppSelector(
     (state) => state.reducer.modal
   );
-
 
   const handleSelectedTransactionModal = (item: string) => {
     return dispatch(
@@ -69,6 +71,41 @@ export const handleVariantForItem = (item: string, selectedItem: boolean) => {
   return variantOutLineMap[item] || "outline-secondary";
 };
 
-export const insertDashSymbolInWord = (label: string) => {
-  return label.split(" ").join("-").toLocaleLowerCase();
+export const insertDashSymbolInWord = (label: string | undefined) => {
+  return label?.split(" ").join("-").toLocaleLowerCase();
+};
+
+export const handleChipSelectionFilter = (
+  categoriesSelected: string[],
+  setCategoriesSelected: React.Dispatch<React.SetStateAction<string[]>>,
+  setCurrentTransactionType: React.Dispatch<React.SetStateAction<string[]>>,
+  currentTransactionType: string[]
+) => {
+  const handleSelectCategoryFilter = (item: string) => {
+    changeSelectedFilters(categoriesSelected, item, setCategoriesSelected);
+  };
+
+  const handleSelectTransactionTypeFilter = (item: string) => {
+    changeSelectedFilters(
+      currentTransactionType,
+      item,
+      setCurrentTransactionType
+    );
+  };
+
+  const changeSelectedFilters = (
+    list: string[],
+    itemSelected: string,
+    action: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    if (list.includes(itemSelected)) {
+      const newTransactionType = list.filter((e: string) => e !== itemSelected);
+      action(newTransactionType);
+    } else {
+      action((transactionType) => [...transactionType, itemSelected]);
+      console.log(itemSelected, "itemmmm");
+    }
+  };
+
+  return { handleSelectCategoryFilter, handleSelectTransactionTypeFilter };
 };

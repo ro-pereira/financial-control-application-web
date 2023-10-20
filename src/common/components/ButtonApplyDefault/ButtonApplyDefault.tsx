@@ -1,9 +1,9 @@
 import { Button } from "react-bootstrap";
 import { IButtonApllyDefault } from "../../../interface";
 
-const ButtonApllyDefault = ({ label }: IButtonApllyDefault) => {
+const ButtonApllyDefault = ({ label, actionApply }: IButtonApllyDefault) => {
   return (
-    <Button variant="warning" type="submit">
+    <Button variant="warning" type="submit" onClick={actionApply}>
       {label}
     </Button>
   );

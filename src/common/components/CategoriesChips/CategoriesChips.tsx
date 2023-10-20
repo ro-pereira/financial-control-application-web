@@ -12,11 +12,12 @@ const CategoriesChips = ({
   categoriesSelected,
   title,
   onSelectCategory,
+  style,
 }: ICategoriesChips) => {
   const categories = useAppSelector(
     (state) => state.reducer.categoriesAndTransactionStatus.categories
   );
-  const originOfTheStyle = insertDashSymbolInWord(title);
+  const originOfTheStyle = insertDashSymbolInWord(style);
   const limitToShowCategories = categories.length >= 4;
 
   const handleSelectCategory = (item: string) => {

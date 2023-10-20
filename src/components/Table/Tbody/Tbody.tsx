@@ -1,12 +1,10 @@
 import { ITransactionData } from "../../../interface";
 import { useAppSelector } from "../../../store/hook";
-import {
-  selectTransactionEntities
-} from "../../../store/slices/transactionsSlices";
+import { selectFilteredTransactions } from "../../../store/slices/transactionsSlices";
 import TbodyListContentRow from "./TbodyListContentRow/TbodyListContentRow";
 
 const Tbody = () => {
-  const transactions = useAppSelector(selectTransactionEntities) || [];
+  const transactions = useAppSelector(selectFilteredTransactions) || [];
 
   return (
     <tbody>
