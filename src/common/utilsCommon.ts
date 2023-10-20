@@ -51,8 +51,6 @@ export const handleChipSelection = () => {
   };
 };
 
-// }
-
 export const handleVariantForItem = (item: string, selectedItem: boolean) => {
   const variantMap: Record<string, string> = {
     cashout: "danger",

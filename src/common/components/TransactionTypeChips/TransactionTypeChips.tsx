@@ -2,21 +2,16 @@ import { Stack } from "react-bootstrap";
 import { ITransactionTypeChip } from "../../../interface";
 import { useAppSelector } from "../../../store/hook";
 import {
-  handleChipSelection,
   handleVariantForItem,
   insertDashSymbolInWord,
 } from "../../utilsCommon";
 import Chip from "../Chip/Chip";
-// import "./transactionTypeChips.sass";
-// import { allCategoriesAndTransactions } from "../../../store/slices/categoriesAndTransactionStatusSlice";
 
 const TransactionTypeChip = ({
   title,
   transactionsTypeSelected,
   onSelectTransactionType,
-}: //   context,
-//   transactionsType
-ITransactionTypeChip) => {
+}: ITransactionTypeChip) => {
   const originOfTheStyle = insertDashSymbolInWord(title);
 
   const transactionType = useAppSelector(

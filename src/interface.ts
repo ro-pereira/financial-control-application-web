@@ -16,8 +16,8 @@ export interface ITransactionsDataSlice {
 
 export interface IModalState {
   openModalAddTransaction: boolean;
-  currentTransactionTypeModalRecords: string,
-  currentCategoryModalRecords: string,
+  currentTransactionTypeModalRecords: string;
+  currentCategoryModalRecords: string;
   isCategorySelected: boolean;
 }
 
@@ -36,6 +36,7 @@ export interface ICardDelete {
   setCurrentTransactionDelete: React.Dispatch<
     React.SetStateAction<number | undefined>
   >;
+  currentTransactionDelete: number | undefined;
 }
 
 export interface ICardHeade {
@@ -107,13 +108,13 @@ export interface IChip {
 export interface ITransactionTypeChip {
   title: string;
   transactionsTypeSelected: string[];
-  onSelectTransactionType: (item: string) => void
+  onSelectTransactionType: (item: string) => void;
 }
 
 export interface ICategoriesChips {
   title: string;
-  categoriesSelected: string[],
-  onSelectCategory: (item: string) => void
+  categoriesSelected: string[];
+  onSelectCategory: (item: string) => void;
 }
 
 export interface IFormField {

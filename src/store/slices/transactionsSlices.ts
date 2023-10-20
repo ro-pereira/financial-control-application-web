@@ -22,10 +22,13 @@ export const transactionsDataSlice = createSlice({
     addNewTransaction: (state, action: PayloadAction<ITransactionData>) => {
       transactionsAdapter.addOne(state.transactionsData, action.payload);
     },
+    removeTransaction: (state, action: PayloadAction<number>) => {
+      transactionsAdapter.removeOne(state.transactionsData, action.payload);
+    },
   },
 });
 
-export const { addNewTransaction } = transactionsDataSlice.actions;
+export const { addNewTransaction, removeTransaction } = transactionsDataSlice.actions;
 
 const selectTransactions = (state: RootState) =>
   state.reducer.transactions.transactionsData;

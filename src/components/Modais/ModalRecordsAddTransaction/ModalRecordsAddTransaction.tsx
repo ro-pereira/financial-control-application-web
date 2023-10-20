@@ -28,9 +28,9 @@ const ModalRecordsAddTransaction = ({
   );
 
   return (
-    <Modal show={openModalAddTransaction} size="sm">
+    <Modal show={openModalAddTransaction} className="modal" size="sm">
       <ModalHeader title="Add records" />
-      <Modal.Body>
+      <Modal.Body className="modal__body">
         <FormRecords
           form={formAdd}
           setForm={setFormAdd}

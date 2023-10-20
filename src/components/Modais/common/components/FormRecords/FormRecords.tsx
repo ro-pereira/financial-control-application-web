@@ -25,7 +25,7 @@ const FormRecords = ({
 }: IFormRecords) => {
   const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
-  const newId = id + 1;
+
   const {
     currentTransactionTypeModalRecords,
     currentCategoryModalRecords,
@@ -67,8 +67,10 @@ const FormRecords = ({
     handleChipSelection();
 
   const handleCloseModal = () => {
+    const newId = id + 1;
     handleCloseAddModal();
     setForm(getAddFormInitialData(newId));
+    setId(newId);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,9 +84,6 @@ const FormRecords = ({
     }
 
     submitForm();
-    // const newId = id + 1;
-    setForm(getAddFormInitialData(newId));
-    setId(newId);
     handleCloseModal();
   };
 

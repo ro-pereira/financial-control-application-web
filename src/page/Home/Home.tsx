@@ -2,11 +2,11 @@ import { Col, Row, Stack } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import ActiveButton from "../../common/components/ActiveButton/ActiveButton";
 import CardResume from "../../components/CardResume/CardResume";
-import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction/ModalRecordsAddTransaction";
 import Table from "../../components/Table/Table";
 import { useAppSelector } from "../../store/hook";
 import { toggleOpenAddTrnsactionModal } from "../../store/slices/modalSlice";
 import "./home.sass";
+import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction/ModalRecordsAddTransaction";
 
 const Home = () => {
   const dispatch = useDispatch();

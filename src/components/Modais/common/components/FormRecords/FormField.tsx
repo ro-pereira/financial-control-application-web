@@ -1,17 +1,19 @@
 import { Form } from "react-bootstrap";
 import { IFormField } from "../../../../../interface";
 import "../../../modais.sass";
+import { capitalizeFirstLetter } from "../../../../../common/utilsCommon";
 
 const FormField = ({ fieldName, config }: IFormField) => {
+  const configType = config.type === "textarea" ? "textarea" : undefined;
+
+  const label = capitalizeFirstLetter(fieldName);
+
   return (
     <>
-      <Form.Label className={config.disabeButton}>
-        {fieldName[0].toUpperCase() + fieldName.substring(1)}
-        {/* EM ALGUM LUGAR TEM ESSA MESMA FUNCIONALIDADE, COLOCAR EM COMMOM */}
-      </Form.Label>
+      <Form.Label className={config.disabeButton}>{label}</Form.Label>
       <Form.Control
         type={config.type}
-        as={config.type === "textarea" ? "textarea" : undefined}
+        as={configType}
         name={fieldName}
         placeholder={config.placeholder}
         autoFocus

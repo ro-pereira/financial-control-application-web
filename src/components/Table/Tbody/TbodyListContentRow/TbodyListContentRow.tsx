@@ -28,9 +28,6 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
     setCurrentTransactionDelete(id);
   };
 
-  // console.log(transactionTypeColor, 'transactionTypeColor');
-  
-
   return (
     <tr>
       <td>{transaction?.date}</td>
@@ -54,6 +51,7 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
           {currentTransactionDelete === transaction?.id && (
             <CardDelete
               setCurrentTransactionDelete={setCurrentTransactionDelete}
+              currentTransactionDelete={currentTransactionDelete }
             />
           )}
         </Stack>
