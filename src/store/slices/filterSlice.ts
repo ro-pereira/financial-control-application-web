@@ -17,9 +17,7 @@ export const transactionsDataSlice = createSlice({
       state.activeFilters = action.payload;
     },
     clearAllFilters: (state) => {
-      Object.assign(state, {
-        filters: initialState.activeFilters,
-      });
+      state.activeFilters = initialState.activeFilters;
     },
   },
 });

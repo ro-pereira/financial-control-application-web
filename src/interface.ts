@@ -93,7 +93,7 @@ export interface IModalRecordsAddTransaction {
 
 export interface IButtonApllyDefault {
   label: string;
-  actionApply: any
+  actionApply: any;
 }
 
 export interface IButtonResetDefault {
@@ -112,21 +112,20 @@ export interface ITransactionTypeChip {
   title: string;
   transactionsTypeSelected: string[];
   onSelectTransactionType: (item: string) => void;
-  style?: string
+  style?: string;
 }
 
 export interface ICategoriesChips {
   title: string;
   categoriesSelected: string[];
   onSelectCategory: (item: string) => void;
-  style?: string
+  style?: string;
 }
 
 export interface IFormField {
   fieldName: string;
   config: IInputFieldConfig;
 }
-
 
 export interface IFilterSlice {
   activeFilters: IFilters;
@@ -136,4 +135,10 @@ export interface IFilters {
   categories: string[];
   transactionType: string[];
   activeFilter: boolean;
+}
+
+export interface IMessageControlTable {
+  arraySize: number;
+  activeFilter: boolean;
+  message: string;
 }
