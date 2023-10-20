@@ -8,6 +8,7 @@ import { toggleOpenAddTrnsactionModal } from "../../store/slices/modalSlice";
 import "./home.sass";
 import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction";
 import ModalRecordsEditTransaction from "../../components/Modais/ModalRecordsEditTransaction";
+import Filter from "../../components/Filter/Filter";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,21 +23,26 @@ const Home = () => {
 
   return (
     <main className="home">
-      <Row className="home__container justify-content-center">
-        <Col className="home__container__table d-fex" sm={12} lg={8}>
-          <Table />
+      <Stack gap={5}>
+        <Col>
+          <Filter />
         </Col>
-        <Col sm={12} lg={3}>
-          <Stack gap={2}>
-            <CardResume />
-            <ActiveButton
-              open={openModalAddTransaction}
-              toggleOpen={handleToggleOpenAddTrnsactionModal}
-              label="add-transaction"
-            />
-          </Stack>
-        </Col>
-      </Row>
+        <Row className="home__container justify-content-center">
+          <Col className="home__container__table d-fex" sm={12} lg={8}>
+            <Table />
+          </Col>
+          <Col sm={12} lg={3}>
+            <Stack gap={2}>
+              <CardResume />
+              <ActiveButton
+                open={openModalAddTransaction}
+                toggleOpen={handleToggleOpenAddTrnsactionModal}
+                label="add-transaction"
+              />
+            </Stack>
+          </Col>
+        </Row>
+      </Stack>
 
       <ModalRecordsAddTransaction
         openModalAddTransaction={openModalAddTransaction}
