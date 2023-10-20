@@ -3,6 +3,8 @@ import { IModalState } from "../../interface";
 
 const initialState: IModalState = {
   openModalAddTransaction: false,
+  // openModalEditTransaction: false,
+  currentIndexTransactionEdit: undefined,
   currentTransactionTypeModalRecords: "deposit",
   currentCategoryModalRecords: "",
   isCategorySelected: false,
@@ -14,6 +16,10 @@ export const modalSlice = createSlice({
   reducers: {
     toggleOpenAddTrnsactionModal: (state, action) => {
       state.openModalAddTransaction = action.payload.openOfClose;
+    },
+    handleCurrentIndexTransactionEdit: (state, action) => {
+      const { id } = action.payload;
+      state.currentIndexTransactionEdit = id;
     },
     setCurrentTransctionTypeModalRecords: (state, action) => {
       state.currentTransactionTypeModalRecords = action.payload.transactionType;
@@ -29,6 +35,7 @@ export const modalSlice = createSlice({
 
 export const {
   toggleOpenAddTrnsactionModal,
+  handleCurrentIndexTransactionEdit,
   setCurrentTransctionTypeModalRecords,
   setIsCategorySelected,
   setCurrentCategorylModalRecords,

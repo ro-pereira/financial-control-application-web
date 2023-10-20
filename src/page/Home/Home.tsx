@@ -6,7 +6,8 @@ import Table from "../../components/Table/Table";
 import { useAppSelector } from "../../store/hook";
 import { toggleOpenAddTrnsactionModal } from "../../store/slices/modalSlice";
 import "./home.sass";
-import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction/ModalRecordsAddTransaction";
+import ModalRecordsAddTransaction from "../../components/Modais/ModalRecordsAddTransaction";
+import ModalRecordsEditTransaction from "../../components/Modais/ModalRecordsEditTransaction";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Home = () => {
       <ModalRecordsAddTransaction
         openModalAddTransaction={openModalAddTransaction}
       />
+      <ModalRecordsEditTransaction />
     </main>
   );
 };

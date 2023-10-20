@@ -2,13 +2,20 @@ import { format } from "date-fns";
 import { IInputFieldsConfig, ITransactionData } from "../../interface";
 import { ChangeEvent, Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import { addNewTransaction } from "../../store/slices/transactionsSlices";
 import {
+  addNewTransaction,
+  updateTransaction,
+} from "../../store/slices/transactionsSlices";
+import {
+  handleCurrentIndexTransactionEdit,
   setCurrentCategorylModalRecords,
   setCurrentTransctionTypeModalRecords,
   toggleOpenAddTrnsactionModal,
 } from "../../store/slices/modalSlice";
-import { addCategory } from "../../store/slices/categoriesAndTransactionStatusSlice";
+import {
+  addCategory,
+  removeCategory,
+} from "../../store/slices/categoriesAndTransactionStatusSlice";
 
 export const getAddFormInitialData = (newId: number) => {
   return {
@@ -111,6 +118,7 @@ export const handleActionsForm = (
   };
 
   const handleCloseAddModal = () => {
+    dispatch(handleCurrentIndexTransactionEdit({ id: undefined }));
     dispatch(setCurrentCategorylModalRecords({ category: "" }));
     dispatch(
       setCurrentTransctionTypeModalRecords({ transactionType: "deposit" })
@@ -119,19 +127,54 @@ export const handleActionsForm = (
     return;
   };
 
+  const editFormPopulation = (transactionEdit: ITransactionData) => {
+    if (transactionEdit && form.value === "") {
+      setForm((prevEditForm) => ({
+        ...prevEditForm,
+        id: transactionEdit.id,
+        date: format(new Date(transactionEdit.date), "yyyy-MM-dd"),
+        category: transactionEdit.category,
+        description: transactionEdit.description,
+        transactionType: transactionEdit.transactionType,
+        value: transactionEdit.value,
+      }));
+
+      dispatch(
+        setCurrentTransctionTypeModalRecords({
+          transactionType: transactionEdit.transactionType,
+        })
+      );
+
+      dispatch(
+        setCurrentCategorylModalRecords({ category: transactionEdit.category })
+      );
+    }
+  };
+
   return {
     handleChangeInputsRecords,
     handleCloseAddModal,
     handleChangeTransactionTypeSelected,
     handleChangeCategorySelectedAddTransaction,
+    editFormPopulation,
   };
 };
 
 export const handleSubmitForm = (
   dispatch: Dispatch<AnyAction>,
   form: ITransactionData,
-  categories: string[]
+  categories: string[],
+  transactionEdit?: ITransactionData | undefined,
+  transactions?: (ITransactionData | undefined)[]
 ) => {
+  const checkIfTheListHasDuplicateItems = (
+    list?: (ITransactionData | undefined)[],
+    item?: string
+  ) => {
+    const listFiltered = list?.filter((e) => e?.category === item);
+    return listFiltered?.length;
+  };
+
   const checkNewItemBelongsToList = (item: string) => {
     return categories.includes(item);
   };
@@ -149,5 +192,35 @@ export const handleSubmitForm = (
     }
   };
 
-  return { handleSubmitOfFormAddModal };
+  const handleSubmitOfFormEditModal = () => {
+    try {
+      dispatch(updateTransaction(form));
+      if (transactionEdit) {
+        if (!checkNewItemBelongsToList(category)) {
+          if (
+            checkIfTheListHasDuplicateItems(
+              transactions,
+              transactionEdit.category
+            ) === 1
+          ) {
+            dispatch(removeCategory(transactionEdit.category));
+          }
+          dispatch(addCategory(category));
+        } else {
+          if (
+            checkIfTheListHasDuplicateItems(
+              transactions,
+              transactionEdit.category
+            ) === 1
+          ) {
+            dispatch(removeCategory(transactionEdit.category));
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao editar transação:", error);
+    }
+  };
+
+  return { handleSubmitOfFormAddModal, handleSubmitOfFormEditModal };
 };

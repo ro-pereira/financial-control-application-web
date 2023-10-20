@@ -1,3 +1,4 @@
+import { ITransactionData } from "../../../interface";
 import { useAppSelector } from "../../../store/hook";
 import {
   selectTransactionEntities
@@ -9,7 +10,7 @@ const Tbody = () => {
 
   return (
     <tbody>
-      {transactions.map((transaction) => {
+      {transactions.map((transaction: ITransactionData | undefined) => {
         return (
           <TbodyListContentRow
             key={transaction?.id}

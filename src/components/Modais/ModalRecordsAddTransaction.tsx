@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import ModalHeader from "../common/components/ModalHeader/ModalHeader";
-import FormRecords from "../common/components/FormRecords/FormRecords";
+import ModalHeader from "./common/components/ModalHeader/ModalHeader";
+import FormRecords from "./common/components/FormRecords/FormRecords";
 import {
   IModalRecordsAddTransaction,
   ITransactionData,
-} from "../../../interface";
-import { getAddFormInitialData, handleSubmitForm } from "../utilsModais";
+} from "../../interface";
+import { getAddFormInitialData, handleSubmitForm } from "./utilsModais";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../../store/hook";
-import "../modais.sass";
+import { useAppSelector } from "../../store/hook";
 
 const ModalRecordsAddTransaction = ({
   openModalAddTransaction,

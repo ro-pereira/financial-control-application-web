@@ -16,6 +16,8 @@ export interface ITransactionsDataSlice {
 
 export interface IModalState {
   openModalAddTransaction: boolean;
+  // openModalEditTransaction: boolean;
+  currentIndexTransactionEdit: number | undefined;
   currentTransactionTypeModalRecords: string;
   currentCategoryModalRecords: string;
   isCategorySelected: boolean;

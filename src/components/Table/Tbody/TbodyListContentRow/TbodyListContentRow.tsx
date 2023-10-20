@@ -10,8 +10,12 @@ import {
 import { ITbodyListContetRow } from "../../../../interface";
 import ButtonIconTbody from "./ButtonIconTbody/ButtonIconTbody";
 import CardDelete from "./CardDelete/CardDelete";
+import { useAppDispatch } from "../../../../store/hook";
+import { handleCurrentIndexTransactionEdit } from "../../../../store/slices/modalSlice";
 
 const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
+  const dispatch = useAppDispatch();
+
   const value = replacePeriodWithComma(
     insertDecimalPlace(Number(transaction?.value))
   );
@@ -28,6 +32,10 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
     setCurrentTransactionDelete(id);
   };
 
+  const handleOpenTransactionEdit = (id: number | undefined) => {
+    dispatch(handleCurrentIndexTransactionEdit({ id: id }));
+  };
+
   return (
     <tr>
       <td>{transaction?.date}</td>
@@ -40,7 +48,7 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
             icon={iconEdit}
             name="edit"
             id={transaction?.id}
-            actionButton={() => {}}
+            actionButton={handleOpenTransactionEdit}
           />
           <ButtonIconTbody
             icon={iconDelete}
@@ -51,7 +59,7 @@ const TbodyListContentRow = ({ transaction }: ITbodyListContetRow) => {
           {currentTransactionDelete === transaction?.id && (
             <CardDelete
               setCurrentTransactionDelete={setCurrentTransactionDelete}
-              currentTransactionDelete={currentTransactionDelete }
+              currentTransactionDelete={currentTransactionDelete}
             />
           )}
         </Stack>
